@@ -14,6 +14,19 @@ app.use(express.static(publicPath));
 
 io.on('connection',function(socket){
   console.log('new user connected');
+  socket.broadcast.emit('newMessage',{
+    from:'Admin',
+    text :'New user joined!'
+  });
+  socket.emit('newMessage',{
+    from:'Admin',
+    text :'Welcome!'
+  });
+  socket.on('createMessage',function(obj){
+    console.log('message Recieved' , obj);
+    socket.broadcast.emit('newMessage',obj);
+  });
+
   socket.on('disconnect',function(socket){
     console.log('user disconnected');
   });
