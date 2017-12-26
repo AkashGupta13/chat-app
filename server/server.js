@@ -24,6 +24,7 @@ io.on('connection',function(socket){
   });
   socket.on('createMessage',function(obj){
     console.log('message Recieved' , obj);
+    socket.emit('newMessage',obj);
     socket.broadcast.emit('newMessage',obj);
   });
 
